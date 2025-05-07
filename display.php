@@ -43,39 +43,90 @@ if ($selectedFile && in_array("data/$selectedFile", $jsonFiles)) {
     <title>Football Match Data Viewer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        th, td { white-space: nowrap; font-size: 0.85rem; }
+        body {
+            background-color: #2C3930;
+            color: #DCD7C9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #DCD7C9;
+            color: #2C3930;
+            border-radius: 10px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #A27B5C;
+            box-shadow: 0 0 0 0.2rem rgba(162, 123, 92, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #A27B5C;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #8C664E;
+        }
+
+        .card {
+            background-color: #3F4E44;
+            color: #DCD7C9;
+            border: none;
+        }
+
+        .table {
+            background-color: #3F4E44;
+            color: #DCD7C9;
+        }
+
+        .table th, .table td {
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        .table-dark th {
+            background-color: #2C3930;
+            color: #DCD7C9;
+        }
+
+        .alert-warning {
+            background-color: #A27B5C;
+            color: #fff;
+            border: none;
+        }
     </style>
 </head>
-<body class="bg-light">
+<body>
 <?php include 'navbar.php'; ?>
 <div class="container-fluid py-4">
-    <h2 class="mb-4">⚽ Football Match Data Viewer</h2>
+    <h2 class="mb-4 text-center">📊 Football Match Data Viewer</h2>
 
     <!-- File Selector -->
-    <form method="get" class="mb-3">
-        <label for="file" class="form-label">Select Season:</label>
-        <select name="file" id="file" class="form-select w-auto d-inline-block" onchange="this.form.submit()">
+    <form method="get" class="mb-3 d-flex flex-wrap align-items-center justify-content-center">
+        <label for="file" class="form-label me-2">Filter Season:</label>
+        <select name="file" id="file" class="form-select w-auto me-3" onchange="this.form.submit()">
             <option value="">-- Choose File --</option>
             <?php foreach ($fileOptions as $file): ?>
                 <option value="<?= $file ?>" <?= $file === $selectedFile ? 'selected' : '' ?>>
-    <?= pathinfo($file, PATHINFO_FILENAME) ?>
-</option>
-
+                    <?= pathinfo($file, PATHINFO_FILENAME) ?>
+                </option>
             <?php endforeach; ?>
         </select>
 
-        <!-- Season Selector -->
         <!-- <?php if ($selectedFile && $seasons): ?>
-            <label for="season" class="form-label ms-3">Filter Season:</label>
-            <select name="season" id="season" class="form-select w-auto d-inline-block" onchange="this.form.submit()">
+            <label for="season" class="form-label me-2">Filter Season:</label>
+            <select name="season" id="season" class="form-select w-auto" onchange="this.form.submit()">
                 <option value="">All Seasons</option>
                 <?php foreach ($seasons as $season): ?>
                     <option value="<?= $season ?>" <?= $season === $selectedSeason ? 'selected' : '' ?>>
                         <?= $season ?>
                     </option>
-                <?php endforeach; ?>
-            </select> -->
-        <?php endif; ?>
+                <?php endforeach ?>
+            </select>
+        <?php endif; ?> -->
     </form>
 
     <!-- Table Display -->
@@ -101,8 +152,10 @@ if ($selectedFile && in_array("data/$selectedFile", $jsonFiles)) {
             </table>
         </div>
     <?php elseif ($selectedFile): ?>
-        <div class="alert alert-warning">No data available for this file and season.</div>
+        <div class="alert alert-warning mt-4">No data available for this file and season.</div>
     <?php endif; ?>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

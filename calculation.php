@@ -1,29 +1,84 @@
-
 <?php
 // league_match_calculator.php
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4-Team League Match</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* body { font-family: Arial, sans-serif; background-color: #e0efe0; padding: 20px; }
-        table, th, td { border: 1px solid #000; border-collapse: collapse; padding: 8px; }
-        table { margin-top: 20px; width: 100%; }
-        .section { background: #cfe0cf; padding: 15px; margin-top: 20px; } */
+        body {
+            background-color: #2C3930;
+            color: #DCD7C9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .section {
+            background-color: #3F4E44;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        input[type="number"] {
+            background-color: #DCD7C9;
+            color: #2C3930;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border: 1px solid #A27B5C;
+            box-shadow: 0 0 0 0.2rem rgba(162, 123, 92, 0.5);
+        }
+
+        button[type="submit"] {
+            background-color: #A27B5C;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #8C664E;
+        }
+
+        table {
+            background-color: #3F4E44;
+            color: #DCD7C9;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #DCD7C9;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2C3930;
+        }
     </style>
 </head>
 <body>
 <?php include 'navbar.php'; ?>
 
-    <h1>4-Team League Match</h1>
-    <form method="post">
-        <div class="section">
+<div class="container py-5">
+    <h1 class="text-center mb-4">🏆 4-Team League Match</h1>
+<center>
+    <form method="post" >
+        <div class="section shadow">
             <h2>Enter Match Results</h2>
             <?php
             $teams = ['TeamA', 'TeamB', 'TeamC', 'TeamD'];
@@ -37,20 +92,19 @@
             ];
 
             foreach ($matches as $i => [$team1, $team2]) {
-                echo "<label>{$team1} vs {$team2}</label><br>";
-                echo "<input name='scores[{$i}][team1]' type='number' min='0' placeholder='{$team1} Score' required>";
-                echo "<input name='scores[{$i}][team2]' type='number' min='0' placeholder='{$team2} Score' required><br><br>";
+                echo "<label class='form-label'>{$team1} vs {$team2}</label><br>";
+                echo "<input name='scores[{$i}][team1]' type='number' min='0' max='10' placeholder='{$team1} Score' required>";
+                echo "<input name='scores[{$i}][team2]' type='number' min='0' max='10' placeholder='{$team2} Score' required><br><br>";
                 echo "<input name='scores[{$i}][name1]' type='hidden' value='{$team1}'>";
                 echo "<input name='scores[{$i}][name2]' type='hidden' value='{$team2}'>";
             }
+            
             ?>
-            <button type="submit">Calculate</button>
+            <button type="submit">📊 Calculate</button>
         </div>
     </form>
-
-    
+    </center>
     <?php
-    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $standings = array_fill_keys($teams, [
             'P' => 0, 'W' => 0, 'D' => 0, 'L' => 0,
@@ -90,12 +144,13 @@
             $standings[$team]['GD'] = $standings[$team]['S'] - $standings[$team]['M'];
         }
 
-        echo "<table><tr><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>S</th><th>M</th><th>GD</th><th>Pts</th></tr>";
+        echo "<table class='shadow'><tr><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>S</th><th>M</th><th>GD</th><th>Pts</th></tr>";
         foreach ($standings as $team => $data) {
             echo "<tr><td>{$team}</td><td>{$data['P']}</td><td>{$data['W']}</td><td>{$data['D']}</td><td>{$data['L']}</td><td>{$data['S']}</td><td>{$data['M']}</td><td>{$data['GD']}</td><td>{$data['Pts']}</td></tr>";
         }
         echo "</table>";
     }
     ?>
+</div>
 </body>
 </html>
