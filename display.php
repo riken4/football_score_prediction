@@ -1,4 +1,11 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+?>
+<?php
 // Load all JSON files in the /data directory
 $jsonFiles = glob('data/*.json');
 

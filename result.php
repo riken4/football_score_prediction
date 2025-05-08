@@ -1,5 +1,10 @@
 <?php 
+session_start(); // Ensure this is at the very top before any output
+
 require_once 'predictor.php';
+
+// Get logged-in username from session
+$username = $_SESSION['username'] ?? null;
 
 $teamA = $_GET['teamA'] ?? '';
 $teamB = $_GET['teamB'] ?? '';
@@ -17,9 +22,11 @@ if ($teamA && $teamB) {
 }
 
 if ($prediction) {
-    $stmt = $pdo->prepare("INSERT INTO prediction_history (teamA, teamB, season, winA, draw, winB, prediction_details)
-                           VALUES (?, ?, ?, ?, ?, ?, ?)");
+    // Insert into prediction_history including username
+    $stmt = $pdo->prepare("INSERT INTO prediction_history (username, teamA, teamB, season, winA, draw, winB, prediction_details)
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->execute([
+        $username,
         $teamA,
         $teamB,
         $season,
@@ -30,6 +37,24 @@ if ($prediction) {
     ]);
 }
 ?>
+                       <?php
+$comment_sql = "SELECT * FROM prediction_history 
+                JOIN tbl_user ON prediction_history.username = tbl_user.UserName 
+                ORDER BY prediction_history.h_id DESC LIMIT 10";
+$comment_stmt = $pdo->query($comment_sql);
+
+while ($comment_row = $comment_stmt->fetch()) {
+    ?>
+    <div class="comment_all">
+        <div class="comment-box">
+            <div class="comment">
+                <b><?php echo htmlspecialchars($comment_row['username']); ?>:</b>
+                Prediction between <?php echo htmlspecialchars($comment_row['teamA']); ?> and <?php echo htmlspecialchars($comment_row['teamB']); ?>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -70,6 +95,7 @@ if ($prediction) {
 <?php include 'navbar.php'; ?>
 
 <div class="container py-5">
+=<?php echo $_SESSION["username"];?>
     <h1 class="text-center mb-4 text-light">Prediction Result</h1>
 
     <?php if ($error): ?>

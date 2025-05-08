@@ -1,14 +1,22 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../login.php");
+    exit();
+}
+?>
+<?php
 require_once '../config.php';
 $stmt = $pdo->query("SELECT * FROM prediction_history ORDER BY created_at DESC");
 $predictions = $stmt->fetchAll();
+// $stmt = $pdo->query("
+//     SELECT ph.*, u.fk_username
+//     FROM prediction_history ph
+//     JOIN users u ON ph.username = u.id
+//     ORDER BY ph.created_at DESC
+// ");
 
-$stmt = $pdo->query("
-    SELECT ph.*, u.username 
-    FROM prediction_history ph
-    JOIN tbl_user u ON ph.UserName = u.id
-    ORDER BY ph.created_at DESC
-");
+
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +35,7 @@ $stmt = $pdo->query("
         <thead>
             <tr>
             <th>User</th>
+            
                 <th>Teams</th>
                 <th>Season</th>
                 <th>Win A</th>
@@ -39,6 +48,7 @@ $stmt = $pdo->query("
             <?php foreach ($predictions as $row): ?>
                 <tr>
                 <td><?= htmlspecialchars($row['username']) ?></td>
+
                     <td><?= htmlspecialchars($row['teamA']) ?> vs <?= htmlspecialchars($row['teamB']) ?></td>
                     <td><?= htmlspecialchars($row['season']) ?></td>
                     <td><?= $row['winA'] ?>%</td>
