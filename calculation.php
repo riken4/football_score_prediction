@@ -16,66 +16,82 @@ if (!isset($_SESSION['username'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        body {
-            background-color: #2C3930;
-            color: #DCD7C9;
-            font-family: 'Segoe UI', sans-serif;
-        }
+    body {
+        background-color: #2C3930;
+        color: #DCD7C9;
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-        .section {
-            background-color: #3F4E44;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
+    .section {
+        background-color: #3F4E44;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
 
-        input[type="number"] {
-            background-color: #DCD7C9;
-            color: #2C3930;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            margin-right: 10px;
-        }
+    input[type="number"] {
+        background-color: #DCD7C9;
+        color: #2C3930;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-right: 10px;
+    }
 
-        input[type="number"]:focus {
-            outline: none;
-            border: 1px solid #A27B5C;
-            box-shadow: 0 0 0 0.2rem rgba(162, 123, 92, 0.5);
-        }
+    input[type="number"]:focus {
+        outline: none;
+        border: 1px solid #A27B5C;
+        box-shadow: 0 0 0 0.2rem rgba(162, 123, 92, 0.5);
+    }
 
-        button[type="submit"] {
-            background-color: #A27B5C;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-        }
+    button[type="submit"] {
+        background-color: #A27B5C;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
 
-        button[type="submit"]:hover {
-            background-color: #8C664E;
-        }
+    button[type="submit"]:hover {
+        background-color: #8C664E;
+    }
 
-        table {
-            background-color: #3F4E44;
-            color: #DCD7C9;
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #2C3930;
+        color: #DCD7C9;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #DCD7C9;
-            text-align: center;
-        }
+    th {
+        background-color: #A27B5C;
+        color: white;
+        padding: 10px;
+        border: 1px solid #8C664E;
+        text-align: center;
+    }
 
-        th {
-            background-color: #2C3930;
-        }
-    </style>
+    td {
+        background-color: #DCD7C9;
+        color:rgb(0, 0, 0);
+        padding: 10px;
+        border: 1px solid #555;
+        text-align: center;
+    }
+
+    tr:nth-child(odd) td {
+        background-color: #DCD7C9;
+    }
+
+    h1, h2 {
+        color: #DCD7C9;
+    }
+</style>
+
 </head>
 <body>
 <?php include 'navbar.php'; ?>

@@ -50,61 +50,77 @@ if ($selectedFile && in_array("data/$selectedFile", $jsonFiles)) {
     <title>Football Match Data Viewer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #2C3930;
-            color: #DCD7C9;
-            font-family: 'Segoe UI', sans-serif;
-        }
+    body {
+        background-color: #2C3930;
+        color: #DCD7C9;
+        font-family: 'Segoe UI', sans-serif;
+    }
 
-        .form-control,
-        .form-select {
-            background-color: #DCD7C9;
-            color: #2C3930;
-            border-radius: 10px;
-        }
+    .card, .alert {
+        background-color: #3F4E44;
+        color: #DCD7C9;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
 
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #A27B5C;
-            box-shadow: 0 0 0 0.2rem rgba(162, 123, 92, 0.5);
-        }
+    .form-control, .form-select {
+        background-color: #DCD7C9;
+        color: #2C3930;
+        border-radius: 10px;
+    }
 
-        .btn-primary {
-            background-color: #A27B5C;
-            border: none;
-        }
+    .form-control:focus, .form-select:focus {
+        border-color: #A27B5C;
+        box-shadow: 0 0 0 0.2rem rgba(162, 123, 92, 0.5);
+    }
 
-        .btn-primary:hover {
-            background-color: #8C664E;
-        }
+    .btn-primary {
+        background-color: #A27B5C;
+        border: none;
+    }
 
-        .card {
-            background-color: #3F4E44;
-            color: #DCD7C9;
-            border: none;
-        }
+    .btn-primary:hover {
+        background-color: #8C664E;
+    }
 
-        .table {
-            background-color: #3F4E44;
-            color: #DCD7C9;
-        }
+    .table {
+        background-color: #2C3930;
+        color: #DCD7C9;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 
-        .table th, .table td {
-            white-space: nowrap;
-            font-size: 0.85rem;
-        }
+    .table th {
+        background-color:rgb(133, 101, 75);
+        color: #fff;
+        border: 1px solid #555;
+       
+    }
 
-        .table-dark th {
-            background-color: #2C3930;
-            color: #DCD7C9;
-        }
+    .table td {
+        background-color: #dcd7c9;
+        border: 1px solid #555;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
 
-        .alert-warning {
-            background-color: #A27B5C;
-            color: #fff;
-            border: none;
-        }
-    </style>
+    .table-striped tbody tr:nth-of-type(odd) td {
+        background-color: #dcd7c9;
+    }
+
+    .alert-warning {
+        background-color: #A27B5C;
+        color: white;
+        border: none;
+    }
+
+    h2 {
+        font-weight: bold;
+        color: #DCD7C9;
+    }
+</style>
+
 </head>
 <body>
 <?php include 'navbar.php'; ?>

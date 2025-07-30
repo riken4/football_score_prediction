@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$db   = 'football_predict';
+$db   = 'football_predict_py';
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';

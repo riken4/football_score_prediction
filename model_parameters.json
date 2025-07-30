@@ -1,0 +1,170 @@
+{
+  "team_strength": {
+    "Spurs": {
+      "home_attack": 1.198171036080107,
+      "away_attack": 1.4049421407907425,
+      "home_defense": 1.4049421407907425,
+      "away_defense": 1.198171036080107
+    },
+    "Liverpool": {
+      "home_attack": 1.2767598643394822,
+      "away_attack": 1.5758403361344537,
+      "home_defense": 1.5758403361344537,
+      "away_defense": 1.2767598643394822
+    },
+    "Man Utd": {
+      "home_attack": 1.2571422963304644,
+      "away_attack": 1.345943204868154,
+      "home_defense": 1.345943204868154,
+      "away_defense": 1.2571422963304644
+    },
+    "West Ham": {
+      "home_attack": 0.954586814459426,
+      "away_attack": 0.8350606909430438,
+      "home_defense": 0.8350606909430438,
+      "away_defense": 0.954586814459426
+    },
+    "Fulham": {
+      "home_attack": 0.9040498654586329,
+      "away_attack": 0.672971602434077,
+      "home_defense": 0.672971602434077,
+      "away_defense": 0.9040498654586329
+    },
+    "Arsenal": {
+      "home_attack": 1.3242722535137128,
+      "away_attack": 1.375202839756592,
+      "home_defense": 1.375202839756592,
+      "away_defense": 1.3242722535137128
+    },
+    "Crystal Palace": {
+      "home_attack": 0.7459096968799235,
+      "away_attack": 0.8485294117647059,
+      "home_defense": 0.8485294117647059,
+      "away_defense": 0.7459096968799235
+    },
+    "Norwich": {
+      "home_attack": 0.6682107701215981,
+      "away_attack": 0.7301299589603283,
+      "home_defense": 0.7301299589603283,
+      "away_defense": 0.6682107701215981
+    },
+    "QPR": {
+      "home_attack": 0.6035452117227338,
+      "away_attack": 0.8202450980392156,
+      "home_defense": 0.8202450980392156,
+      "away_defense": 0.6035452117227338
+    },
+    "Aston Villa": {
+      "home_attack": 0.7373360222031428,
+      "away_attack": 0.7353921568627451,
+      "home_defense": 0.7353921568627451,
+      "away_defense": 0.7373360222031428
+    },
+    "Chelsea": {
+      "home_attack": 1.3850186871611307,
+      "away_attack": 1.4142156862745099,
+      "home_defense": 1.4142156862745099,
+      "away_defense": 1.3850186871611307
+    },
+    "Man City": {
+      "home_attack": 1.6412194353863814,
+      "away_attack": 1.378860294117647,
+      "home_defense": 1.378860294117647,
+      "away_defense": 1.6412194353863814
+    },
+    "Hull": {
+      "home_attack": 0.642510355886152,
+      "away_attack": 0.7314908722109533,
+      "home_defense": 0.7314908722109533,
+      "away_defense": 0.642510355886152
+    },
+    "West Brom": {
+      "home_attack": 0.8990472179817866,
+      "away_attack": 0.7364594894561598,
+      "home_defense": 0.7364594894561598,
+      "away_defense": 0.8990472179817866
+    },
+    "Wigan": {
+      "home_attack": 0.8352634626519977,
+      "away_attack": 1.0076286764705882,
+      "home_defense": 1.0076286764705882,
+      "away_defense": 0.8352634626519977
+    },
+    "Sunderland": {
+      "home_attack": 0.7142942715092945,
+      "away_attack": 0.8352711397058823,
+      "home_defense": 0.8352711397058823,
+      "away_defense": 0.7142942715092945
+    },
+    "Everton": {
+      "home_attack": 1.2070904234454676,
+      "away_attack": 1.0569401444788442,
+      "home_defense": 1.0569401444788442,
+      "away_defense": 1.2070904234454676
+    },
+    "Leicester": {
+      "home_attack": 1.0023161551823971,
+      "away_attack": 1.0999455337690631,
+      "home_defense": 1.0999455337690631,
+      "away_defense": 1.0023161551823971
+    },
+    "Southampton": {
+      "home_attack": 1.0532813834120107,
+      "away_attack": 0.8916749750747757,
+      "home_defense": 0.8916749750747757,
+      "away_defense": 1.0532813834120107
+    },
+    "Swansea": {
+      "home_attack": 0.9156962405370049,
+      "away_attack": 0.9627545248868777,
+      "home_defense": 0.9627545248868777,
+      "away_defense": 0.9156962405370049
+    },
+    "Reading": {
+      "home_attack": 0.6204814293986268,
+      "away_attack": 0.8984429065743944,
+      "home_defense": 0.8984429065743944,
+      "away_defense": 0.6204814293986268
+    },
+    "Stoke": {
+      "home_attack": 0.9376505967835329,
+      "away_attack": 0.7145510835913312,
+      "home_defense": 0.7145510835913312,
+      "away_defense": 0.9376505967835329
+    },
+    "Cardiff": {
+      "home_attack": 0.7636694515675407,
+      "away_attack": 0.5490484429065744,
+      "home_defense": 0.5490484429065744,
+      "away_defense": 0.7636694515675407
+    },
+    "Bournemouth": {
+      "home_attack": 0.8909476934954641,
+      "away_attack": 0.9050980392156862,
+      "home_defense": 0.9050980392156862,
+      "away_defense": 0.8909476934954641
+    },
+    "Watford": {
+      "home_attack": 0.5345686160972786,
+      "away_attack": 0.9256684491978608,
+      "home_defense": 0.9256684491978608,
+      "away_defense": 0.5345686160972786
+    },
+    "Newcastle": {
+      "home_attack": 0.875586526366232,
+      "away_attack": 0.6788235294117647,
+      "home_defense": 0.6788235294117647,
+      "away_defense": 0.875586526366232
+    },
+    "Burnley": {
+      "home_attack": 0.40092646207295884,
+      "away_attack": 0.5221719457013575,
+      "home_defense": 0.5221719457013575,
+      "away_defense": 0.40092646207295884
+    }
+  },
+  "avg_home_goals": 1.4965337954939342,
+  "avg_away_goals": 1.1785095320623917,
+  "training_accuracy": 0.4194107452339688,
+  "testing_accuracy": 0.39100346020761245
+}

@@ -16,8 +16,12 @@
                     <a class="nav-link" href="admin_history.php"> History</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="user_detail.php">User Detail</a>
+                    <a class="nav-link" href="user_management.php"> User Management</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="prediction_management.php"> Prediction Management</a>
+                </li>
+             
                 <li class="nav-item">
                     <a class="nav-link" href="../login.php"> Logout</a>
                 </li>

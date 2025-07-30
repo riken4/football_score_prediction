@@ -158,10 +158,10 @@ INSERT INTO `prediction_history1` (`id`, `user`, `teamA`, `teamB`, `season`, `wi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_user`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `tbl_user` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `UserName` varchar(255) NOT NULL,
   `fullName` varchar(255) NOT NULL,
@@ -175,10 +175,10 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbl_user`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `tbl_user` (`id`, `UserName`, `fullName`, `Number`, `Email`, `Address`, `Gender`, `profile_picture`, `num_likes`, `password`) VALUES
+INSERT INTO `users` (`id`, `UserName`, `fullName`, `Number`, `Email`, `Address`, `Gender`, `profile_picture`, `num_likes`, `password`) VALUES
 (0, 'rik', 'Riken Maharjan', '9841193044', 'rikenmarjan4@gmail.com', 'wsfafdhgashghgwagdh', '', 'uploads/1745626059_monthly_gantt_chart_for_waterfall_software_feature_waterfall_project_management_pm_ss_slide01.jpg', 0, '$2y$10$JNmtZoMn5V9JpJ25pCC56.rWVRGnaj.yQc71Iyqd9JtMFj.3FaTfG'),
 (61, 'riken', 'riken', '9841193010', 'rikenmaharjan4@gmail.com', 'pulchowk', '', 'Kendrick Lamar - DAMN_ (2017).jfif', 0, '37ecee98ba5775b657cf4014aaa251ffc50fcf7a'),
 (0, 'rr', 'Riken Maharjan', '9841193410', 'rikenmahrjan4@gmail.com', 'lalitpur', '', 'uploads/1745463536_DFD level1.drawio.png', 0, '$2y$10$RFCy3wAv0Z49GNNB2hbIguAIylbP2OpoeorXoyIRRmX.nd7NBf5Vq'),
@@ -208,9 +208,9 @@ ALTER TABLE `prediction_history1`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tbl_user`
+-- Indexes for table `users`
 --
-ALTER TABLE `tbl_user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`UserName`);
 
 --

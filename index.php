@@ -1,4 +1,10 @@
-<!--  -->
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("location:login.php");
+    exit;
+}
+?>
 <?php 
 require_once 'predictor.php';
 
@@ -77,6 +83,7 @@ if ($teamA && $teamB) {
 </head>
 <body>
 <?php include 'navbar.php'; ?>
+
 <!--  Prediction Form -->
 <div class="container py-5">
     <h1 class="text-center mb-4">⚽ Football Score Predictor</h1>
@@ -174,7 +181,7 @@ function validateTeams() {
         </div>
     <?php endif; ?>
  -->
-    <a href="register.php">Create an account →</a>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

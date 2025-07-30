@@ -14,12 +14,12 @@ if (isset($_POST['submit'])) {
     $hashedPassword = password_hash($Password, PASSWORD_DEFAULT);
 
     // Check if user or email already exists
-    $stmt = $pdo->prepare("SELECT * FROM tbl_user WHERE username = ? OR email = ?");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
     $stmt->execute([$UserName, $Email]);
     if ($stmt->rowCount() > 0) {
         echo "<script>alert('Username or email already exists');</script>";
     } else {
-        $insert = $pdo->prepare("INSERT INTO tbl_user 
+        $insert = $pdo->prepare("INSERT INTO users 
             (UserName, fullname, Number, Email, Address, Password) 
             VALUES (?, ?, ?, ?, ?, ?)");
         $success = $insert->execute([

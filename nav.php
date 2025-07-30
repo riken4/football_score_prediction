@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <div class="container">
         <a class="navbar-brand" href="user_dashboard.php">⚽ Score Predictor</a>
@@ -18,15 +19,12 @@
                     <li class="">
                         <a class="nav-link" href="index.php">Predict</a>
                     </li> 
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="display.php">Match Detail</a>
-                    </li>  -->
+                    </li> 
                     <li class="nav-item">
                         <a class="nav-link" href="calculation.php">Calculate</a>
                     </li> 
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">My Teams</a>
-                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php"> Logout</a>

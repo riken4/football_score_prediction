@@ -10,20 +10,32 @@ if (isset($_POST['login'])) {
     if ($inputUsertype == 1) {
         $stmt = $pdo->prepare("SELECT * FROM admin WHERE username = :username");
     } else if ($inputUsertype == 2) {
-        $stmt = $pdo->prepare("SELECT * FROM tbl_user WHERE username = :username");
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
     }
 
     $stmt->execute(['username' => $UserName]);
-
     $user = $stmt->fetch();
 
     if ($user && password_verify($Password, $user['password'])) {
-        $_SESSION['username'] = $UserName;
+        // Check if user is banned (only for regular users)
+        if ($inputUsertype == 2 && isset($user['status']) && $user['status'] === 'banned') {
+            echo "<script>alert('Your account has been banned. Please contact the administrator.'); window.location.href = 'login.php';</script>";
+            exit();
+        }
 
+        // Update last login time for users
+        // if ($inputUsertype == 2) {
+        //     $updateStmt = $pdo->prepare("UPDATE users SET last_login = NOW() WHERE username = ?");
+        //     $updateStmt->execute([$UserName]);
+        // }
+
+        $_SESSION['username'] = $UserName;
         if ($inputUsertype == 1) {
+            $_SESSION['is_admin'] = true;
             header("Location: admin/admin_dashboard.php");
         } else {
-            header("Location: user_dashboard.php"); // redirecting user to a separate dashboard
+            $_SESSION['is_admin'] = false;
+            header("Location: user_dashboard.php");
         }
         exit();
     } else {
@@ -67,7 +79,7 @@ if (isset($_POST['login'])) {
         }
 
         .form-control, .form-select {
-            background-color: #DCD7C9;
+            color: #3F4E44;
             border: none;
             border-radius: 10px;
         }

@@ -5,13 +5,13 @@ require '../config.php'; // Include your config with $pdo
 $sql = "
     SELECT 
         prediction_history.*, 
-        tbl_user.username 
+        users.username 
     FROM 
         prediction_history 
     JOIN 
-        tbl_user 
+        users 
     ON 
-        prediction_history.username = tbl_user.id
+        prediction_history.username = users.id
 ";
 
 // Execute the query
