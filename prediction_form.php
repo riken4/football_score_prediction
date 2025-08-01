@@ -25,83 +25,209 @@ function getActualResults($teamA, $teamB, $season) {
     }
     return ['winA' => $winA, 'draw' => $draw, 'winB' => $winB];
 }
+
 ?>
+<?php include 'navbar.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Football Match Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background-color: #2C3930;
+            color: #DCD7C9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card {
+            background-color: #3F4E44;
+            color: #DCD7C9;
+            border: none;
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #DCD7C9;
+            color: #2C3930;
+            border-radius: 10px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #A27B5C;
+            box-shadow: 0 0 0 0.2rem rgba(162, 123, 92, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #A27B5C;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #8C664E;
+        }
+
+        .list-group-item {
+            background-color: #DCD7C9;
+            color: #2C3930;
+            border: none;
+        }
+
+                 .probability-card {
+             background-color: #3F4E44;
+             border-radius: 12px;
+             padding: 15px;
+             text-align: center;
+             color: #DCD7C9;
+             border: 2px solid #A27B5C;
+         }
+
+         .home-win {
+             border-color: #27ae60;
+             background: linear-gradient(135deg, #27ae60, #2ecc71);
+             color: white;
+         }
+
+         .draw {
+             border-color: #f39c12;
+             background: linear-gradient(135deg, #f39c12, #e67e22);
+             color: white;
+         }
+
+         .away-win {
+             border-color: #e74c3c;
+             background: linear-gradient(135deg, #e74c3c, #c0392b);
+             color: white;
+         }
+
+         .probability-value {
+             font-size: 1.8em;
+             font-weight: bold;
+             color: white;
+         }
+
+         .expected-goals {
+             background: linear-gradient(135deg, #3498db, #2980b9);
+             border: 2px solid #3498db;
+             border-radius: 12px;
+             padding: 15px;
+             text-align: center;
+             margin-bottom: 20px;
+             color: white;
+         }
+
+         .goals-display {
+             font-size: 1.8em;
+             font-weight: bold;
+             color: white;
+         }
+
+         .final-prediction {
+             background: linear-gradient(135deg, #9b59b6, #8e44ad);
+             border: 2px solid #9b59b6;
+             border-radius: 12px;
+             padding: 20px;
+             text-align: center;
+             margin-bottom: 20px;
+             color: white;
+         }
+
+         .prediction-result {
+             font-size: 1.5em;
+             font-weight: bold;
+             color: white;
+             margin: 10px 0;
+         }
+
+         .confidence {
+             font-size: 1em;
+             color: white;
+         }
+
+        .model-info {
+            background-color: #3F4E44;
+            border: 1px solid #A27B5C;
+            border-radius: 15px;
             padding: 20px;
+            margin-top: 20px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 30px;
+        .info-item {
             text-align: center;
+            padding: 15px;
+            background-color: #DCD7C9;
+            border-radius: 10px;
+            color: #2C3930;
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        .info-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #A27B5C;
         }
 
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
+        .info-label {
+            color: #2C3930;
+            font-size: 0.9em;
         }
 
-        .form-section {
-            padding: 40px;
-        }
-
-        .form-group {
+        .score-probabilities {
+            background-color: #3F4E44;
+            border: 1px solid #A27B5C;
+            border-radius: 15px;
+            padding: 30px;
             margin-bottom: 30px;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #2c3e50;
+                 .score-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+             gap: 8px;
+         }
+
+         .score-item {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             padding: 8px 12px;
+             border-radius: 8px;
+             font-weight: 600;
+             background: linear-gradient(135deg, #f39c12, #e67e22);
+             color: #2C3930;
+             margin-bottom: 6px;
+             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+             font-size: 0.9em;
+         }
+
+        .score {
+            font-weight: bold;
             font-size: 1.1em;
         }
 
-        .form-group select {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-            background: white;
-            transition: border-color 0.3s ease;
+        .probability {
+            font-weight: bold;
+            color: #2C3930;
         }
 
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        .error {
+            background-color: #721c24;
+            color: #f8d7da;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .vs-badge {
+            background-color: #A27B5C;
+            color: #DCD7C9;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
         }
 
         .teams-container {
@@ -112,341 +238,114 @@ function getActualResults($teamA, $teamB, $season) {
             margin-bottom: 30px;
         }
 
-        .team-select {
-            text-align: center;
-        }
-
-        .vs-badge {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2em;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
-        }
-
-        .predict-btn {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .predict-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.3);
-        }
-
-        .predict-btn:active {
-            transform: translateY(0);
-        }
-
-        .results-section {
-            padding: 40px;
-            background: #f8f9fa;
-        }
-
-        .prediction-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .match-title {
-            text-align: center;
-            font-size: 2em;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-
-        .probabilities-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .probability-card {
-            text-align: center;
-            padding: 25px;
-            border-radius: 15px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .home-win {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-        }
-
-        .draw {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-        }
-
-        .away-win {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-        }
-
-        .probability-value {
-            font-size: 2.5em;
-            margin: 10px 0;
-        }
-
-        .expected-goals {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            text-align: center;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-
-        .expected-goals h3 {
-            margin-bottom: 15px;
-        }
-
-        .goals-display {
-            font-size: 2.5em;
-            font-weight: bold;
-        }
-
-        .final-prediction {
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            color: white;
-            text-align: center;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-
-        .final-prediction h3 {
-            margin-bottom: 15px;
-        }
-
-        .prediction-result {
-            font-size: 2em;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-
-        .confidence {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .model-info {
-            background: #ecf0f1;
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-        }
-
-        .model-info h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .info-item {
-            text-align: center;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-        }
-
-        .info-value {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .info-label {
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #7f8c8d;
-        }
-
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .score-probabilities {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .score-probabilities h3 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 1.5em;
-        }
-
-        .text-muted {
-            color: #7f8c8d;
-            font-size: 0.95em;
-            margin-bottom: 20px;
-        }
-
-        .score-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 12px;
-        }
-
-        .score-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: transform 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .score-item:hover {
-            transform: translateY(-2px);
-        }
-
-        .score {
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        .probability {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
         @media (max-width: 768px) {
             .teams-container {
                 grid-template-columns: 1fr;
                 gap: 15px;
-            }
-            
-            .probabilities-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .info-grid {
-                grid-template-columns: 1fr;
             }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>⚽ Football Match Predictor</h1>
-        </div>
 
-        <div class="form-section">
+    <div class="container py-5">
+        <h1 class="text-center mb-4">⚽ Football Match Predictor</h1>
+
+        <div class="card shadow p-4 mb-5 rounded">
             <form method="POST" action="">
                 <div class="teams-container">
-                    <div class="team-select">
-                        <div class="form-group">
-                            <label for="team1">🏠 Home Team</label>
-                            <select name="team1" id="team1" required>
-                                <option value="">Select Home Team</option>
-                                <option value="Arsenal">Arsenal</option>
-                                <option value="Aston Villa">Aston Villa</option>
-                                <option value="Bournemouth">Bournemouth</option>
-                                <option value="Chelsea">Chelsea</option>
-                                <option value="Crystal Palace">Crystal Palace</option>
-                                <option value="Everton">Everton</option>
-                                <option value="Leicester">Leicester</option>
-                                <option value="Liverpool">Liverpool</option>
-                                <option value="Man City">Man City</option>
-                                <option value="Man Utd">Man Utd</option>
-                                <option value="Newcastle">Newcastle</option>
-                                <option value="Norwich">Norwich</option>
-                                <option value="Southampton">Southampton</option>
-                                <option value="Spurs">Spurs</option>
-                                <option value="Stoke">Stoke</option>
-                                <option value="Sunderland">Sunderland</option>
-                                <option value="Swansea">Swansea</option>
-                                <option value="Watford">Watford</option>
-                                <option value="West Brom">West Brom</option>
-                                <option value="West Ham">West Ham</option>
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label for="team1" class="form-label">🏠 Home Team</label>
+                        <select name="team1" id="team1" class="form-select" required>
+                            <option value="">Select Home Team</option>
+                            <option value="Arsenal">Arsenal</option>
+                            <option value="Aston Villa">Aston Villa</option>
+                            <option value="Bournemouth">Bournemouth</option>
+                            <option value="Brentford">Brentford</option>
+                            <option value="Brighton">Brighton</option>
+                            <option value="Burnley">Burnley</option>
+                            <option value="Chelsea">Chelsea</option>
+                            <option value="Crystal Palace">Crystal Palace</option>
+                            <option value="Everton">Everton</option>
+                            <option value="Fulham">Fulham</option>
+                            <option value="Leeds">Leeds</option>
+                            <option value="Leicester">Leicester</option>
+                            <option value="Liverpool">Liverpool</option>
+                            <option value="Luton">Luton</option>
+                            <option value="Man City">Man City</option>
+                            <option value="Man Utd">Man United</option>
+                            <option value="Newcastle">Newcastle</option>
+                            <option value="Norwich">Norwich</option>
+                            <option value="Nottingham Forest">Nottingham Forest</option>
+                            <option value="Sheffield Utd">Sheffield Utd</option>
+                            <option value="Southampton">Southampton</option>
+                            <option value="Spurs">Tottenham</option>
+                            <option value="Stoke">Stoke</option>
+                            <option value="Sunderland">Sunderland</option>
+                            <option value="Swansea">Swansea</option>
+                            <option value="Watford">Watford</option>
+                            <option value="West Brom">West Brom</option>
+                            <option value="West Ham">West Ham</option>
+                            <option value="Wolves">Wolves</option>
+                        </select>
                     </div>
 
                     <div class="vs-badge">VS</div>
 
-                    <div class="team-select">
-                        <div class="form-group">
-                            <label for="team2">✈️ Away Team</label>
-                            <select name="team2" id="team2" required>
-                                <option value="">Select Away Team</option>
-                                <option value="Arsenal">Arsenal</option>
-                                <option value="Aston Villa">Aston Villa</option>
-                                <option value="Bournemouth">Bournemouth</option>
-                                <option value="Chelsea">Chelsea</option>
-                                <option value="Crystal Palace">Crystal Palace</option>
-                                <option value="Everton">Everton</option>
-                                <option value="Leicester">Leicester</option>
-                                <option value="Liverpool">Liverpool</option>
-                                <option value="Man City">Man City</option>
-                                <option value="Man Utd">Man Utd</option>
-                                <option value="Newcastle">Newcastle</option>
-                                <option value="Norwich">Norwich</option>
-                                <option value="Southampton">Southampton</option>
-                                <option value="Spurs">Spurs</option>
-                                <option value="Stoke">Stoke</option>
-                                <option value="Sunderland">Sunderland</option>
-                                <option value="Swansea">Swansea</option>
-                                <option value="Watford">Watford</option>
-                                <option value="West Brom">West Brom</option>
-                                <option value="West Ham">West Ham</option>
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label for="team2" class="form-label">✈️ Away Team</label>
+                        <select name="team2" id="team2" class="form-select" required>
+                            <option value="">Select Away Team</option>
+                            <option value="Arsenal">Arsenal</option>
+                            <option value="Aston Villa">Aston Villa</option>
+                            <option value="Bournemouth">Bournemouth</option>
+                            <option value="Brentford">Brentford</option>
+                            <option value="Brighton">Brighton</option>
+                            <option value="Burnley">Burnley</option>
+                            <option value="Chelsea">Chelsea</option>
+                            <option value="Crystal Palace">Crystal Palace</option>
+                            <option value="Everton">Everton</option>
+                            <option value="Fulham">Fulham</option>
+                            <option value="Leeds">Leeds</option>
+                            <option value="Leicester">Leicester</option>
+                            <option value="Liverpool">Liverpool</option>
+                            <option value="Luton">Luton</option>
+                            <option value="Man City">Man City</option>
+                            <option value="Man Utd">Man United</option>
+                            <option value="Newcastle">Newcastle</option>
+                            <option value="Norwich">Norwich</option>
+                            <option value="Nottingham Forest">Nottingham Forest</option>
+                            <option value="Sheffield Utd">Sheffield Utd</option>
+                            <option value="Southampton">Southampton</option>
+                            <option value="Spurs">Tottenham</option>
+                            <option value="Stoke">Stoke</option>
+                            <option value="Sunderland">Sunderland</option>
+                            <option value="Swansea">Swansea</option>
+                            <option value="Watford">Watford</option>
+                            <option value="West Brom">West Brom</option>
+                            <option value="West Ham">West Ham</option>
+                            <option value="Wolves">Wolves</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="season">📅 Season</label>
-            
-                    <select name="season" id="season" required>
+                <div class="mb-3">
+                    <label for="season" class="form-label">📅 Season</label>
+                    <select name="season" id="season" class="form-select" required>
                         <option value="">Select Season</option>
                         <option value="2012-13">2012-13</option>
                         <option value="2013-14">2013-14</option>
                         <option value="2014-15">2014-15</option>
                         <option value="2015-16">2015-16</option>
                         <option value="2020-21">2020-21</option>
-                        <!-- Add more seasons as needed -->
+                        <option value="2021-22">2021-22</option>
+                        <option value="2022-23">2022-23</option>
+                        <option value="2023-24">2023-24</option>
                     </select>
                 </div>
 
-                <button type="submit" class="predict-btn">🎯 Get Prediction</button>
+                <button type="submit" class="btn btn-primary w-100">🎯 Get Prediction</button>
             </form>
         </div>
 
@@ -457,35 +356,18 @@ function getActualResults($teamA, $teamB, $season) {
             $season = isset($_POST['season']) ? $_POST['season'] : '';
             
             if ($team1 === $team2) {
-                echo '<div class="results-section">';
+                echo '<div class="card shadow p-4 mb-5 rounded">';
                 echo '<div class="error">Please select different teams for home and away.</div>';
                 echo '</div>';
             } else {
-                echo '<div class="results-section">';
-                // echo '<div class="loading">Analyzing match data...</div>';
+                echo '<div class="card shadow p-4 mb-5 rounded">';
                 
                 // Run prediction with better error handling
                 $python = "python";
                 $script = "C:\\xampp2\\htdocs\\6workingsem-with-py\\predict_match_new.py";
                 $command = "\"$python\" \"$script\" \"$team1\" \"$team2\" \"$season\" 2>&1";
                 
-                // Debug information
-                // echo '<div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-family: monospace; font-size: 12px;">';
-                // echo '<strong>Debug Info:</strong><br>';
-                // echo 'Command: ' . $command . '<br>';
-                // echo 'Team 1: ' . $team1 . '<br>';
-                // echo 'Team 2: ' . $team2 . '<br>';
-                // echo 'Season: ' . $season . '<br>';
-                // echo 'Script exists: ' . (file_exists($script) ? 'Yes' : 'No') . '<br>';
-                // echo '</div>';
-                
                 $output = shell_exec($command);
-                
-                // echo '<div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-family: monospace; font-size: 12px;">';
-                // echo '<strong>Raw Output:</strong><br>';
-                // echo htmlspecialchars($output ? $output : 'NULL') . '<br>';
-                // echo 'Output length: ' . strlen($output) . '<br>';
-                // echo '</div>';
                 
                 if ($output) {
                     $json_data = json_decode($output, true);
@@ -496,7 +378,7 @@ function getActualResults($teamA, $teamB, $season) {
                         $servername = "localhost";
                         $username = "root";
                         $password = "";
-                        $dbname = "football_predict_py"; // <-- change to your actual DB name
+                        $dbname = "football_predict_py";
                         $conn = new mysqli($servername, $username, $password, $dbname);
                         if (!$conn->connect_error) {
                             $stmt = $conn->prepare("INSERT INTO prediction_history (username, teamA, teamB, season, winA, draw, winB, prediction_details) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -516,155 +398,162 @@ function getActualResults($teamA, $teamB, $season) {
                             $conn->close();
                         }
                         ?>
-                        <div class="prediction-card">
-                            <div class="match-title"><?php echo $team1; ?> vs <?php echo $team2; ?></div>
-                            
-                            <div class="probabilities-grid">
+                        <h2 class="text-center mb-4"><?php echo $team1; ?> vs <?php echo $team2; ?></h2>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-4">
                                 <div class="probability-card home-win">
                                     <h3>🏠 Home Win</h3>
                                     <div class="probability-value"><?php echo $json_data['prediction']['home_win']; ?>%</div>
                                 </div>
-                                
+                            </div>
+                            
+                            <div class="col-md-4">
                                 <div class="probability-card draw">
                                     <h3>🤝 Draw</h3>
                                     <div class="probability-value"><?php echo $json_data['prediction']['draw']; ?>%</div>
                                 </div>
-                                
+                            </div>
+                            
+                            <div class="col-md-4">
                                 <div class="probability-card away-win">
                                     <h3>✈️ Away Win</h3>
                                     <div class="probability-value"><?php echo $json_data['prediction']['away_win']; ?>%</div>
                                 </div>
                             </div>
-                            
-                            <?php
-                            $actual = getActualResults($team1, $team2, $season);
-                            $predicted = [
-                                $json_data['prediction']['home_win'],
-                                $json_data['prediction']['draw'],
-                                $json_data['prediction']['away_win']
-                            ];
-                            $actualArr = [$actual['winA'], $actual['draw'], $actual['winB']];
-                            ?>
-                            <canvas id="predictionChart" height="200" style="width: 100%; margin-bottom: 30px;"></canvas>
-                            <script>
-                            const ctx = document.getElementById('predictionChart').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: [
-                                        '<?= htmlspecialchars($team1) ?> Win',
-                                        'Draw',
-                                        '<?= htmlspecialchars($team2) ?> Win'
-                                    ],
-                                    datasets: [
-                                        {
-                                            label: 'Predicted Probabilities (%)',
-                                            data: <?= json_encode($predicted) ?>,
-                                            backgroundColor: '#CE5A67',
-                                            borderRadius: 5,
-                                            barThickness: 30
-                                        },
-                                        {
-                                            label: 'Actual Results (Count)',
-                                            data: <?= json_encode($actualArr) ?>,
-                                            backgroundColor: '#F4BF96',
-                                            borderRadius: 5,
-                                            barThickness: 30
-                                        }
-                                    ]
-                                },
-                                options: {
-                                    responsive: true,
-                                    scales: {
-                                        y: { beginAtZero: true, ticks: { color: '#2C3930' }},
-                                        x: { ticks: { color: '#2C3930' }}
+                        </div>
+                        
+                        <?php
+                        $actual = getActualResults($team1, $team2, $season);
+                        $predicted = [
+                            $json_data['prediction']['home_win'],
+                            $json_data['prediction']['draw'],
+                            $json_data['prediction']['away_win']
+                        ];
+                        $actualArr = [$actual['winA'], $actual['draw'], $actual['winB']];
+                        ?>
+                        <div class="mb-4">
+                            <h4 class="text-center mb-3">Predicted vs Actual Results</h4>
+                            <canvas id="predictionChart" height="60"></canvas>
+                        </div>
+                        <script>
+                        const ctx = document.getElementById('predictionChart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: [
+                                    '<?= htmlspecialchars($team1) ?> Win',
+                                    'Draw',
+                                    '<?= htmlspecialchars($team2) ?> Win'
+                                ],
+                                datasets: [
+                                    {
+                                        label: 'Predicted Probabilities (%)',
+                                        data: <?= json_encode($predicted) ?>,
+                                        backgroundColor: '#CE5A67',
+                                        borderRadius: 5,
+                                        barThickness: 30
                                     },
-                                    plugins: {
-                                        legend: { labels: { color: '#2C3930' }},
-                                        title: {
-                                            display: true,
-                                            text: 'Predicted vs Actual Results',
-                                            color: '#2C3930',
-                                            font: { size: 16 }
-                                        }
+                                    {
+                                        label: 'Actual Results (Count)',
+                                        data: <?= json_encode($actualArr) ?>,
+                                        backgroundColor: '#F4BF96',
+                                        borderRadius: 5,
+                                        barThickness: 30
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: { beginAtZero: true, ticks: { color: '#DCD7C9' }},
+                                    x: { ticks: { color: '#DCD7C9' }}
+                                },
+                                plugins: {
+                                    legend: { labels: { color: '#DCD7C9' }},
+                                    title: {
+                                        display: false
                                     }
                                 }
-                            });
-                            </script>
-                            
-                            <div class="expected-goals">
-                                <h3>⚽ Expected Goals</h3>
-                                <div class="goals-display"><?php echo $json_data['prediction']['expected_home_goals']; ?> - <?php echo $json_data['prediction']['expected_away_goals']; ?></div>
-                            </div>
-                            
-                            <?php
-                            $max_prob = max($json_data['prediction']['home_win'], $json_data['prediction']['draw'], $json_data['prediction']['away_win']);
-                            $predicted_result = "";
-                            if ($max_prob == $json_data['prediction']['home_win']) {
-                                $predicted_result = "HOME WIN for $team1";
-                            } elseif ($max_prob == $json_data['prediction']['away_win']) {
-                                $predicted_result = "AWAY WIN for $team2";
-                            } else {
-                                $predicted_result = "DRAW";
                             }
-                            ?>
-                            
-                            <div class="final-prediction">
-                                <h3>🎯 Final Prediction</h3>
-                                <div class="prediction-result"><?php echo $predicted_result; ?></div>
-                                <div class="confidence">Confidence: <?php echo $max_prob; ?>%</div>
-                            </div>
-                            
-                            <?php if (isset($json_data['prediction']['score_probabilities'])): ?>
-                            <div class="score-probabilities">
-                                <h3>📊 Score Probabilities</h3>
-                                <p class="text-muted">This chart shows the probability of each possible final score.</p>
-                                <?php
-                                    $score_probs = $json_data['prediction']['score_probabilities'];
-                                    $filtered = array_filter($score_probs, function($p) { return $p > 0.01; });
-                                    arsort($filtered);
-                                    $maxProb = max($filtered);
-                                ?>
-                                <div class="score-list">
-                                    <?php foreach ($filtered as $score => $prob): ?>
-                                        <?php
-                                            $lightness = 95 - 40 * ($prob / $maxProb);
-                                            $bgColor = "hsl(35, 100%, {$lightness}%)";
-                                        ?>
-                                        <div class="score-item" style="background-color: <?= $bgColor ?>;">
-                                            <span class="score"><?= htmlspecialchars($score) ?></span>
-                                            <span class="probability"><?= round($prob * 100, 2) ?>%</span>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                                <canvas id="scoreProbChart" height="400" style="width: 100%; margin-top: 30px;"></canvas>
-                            </div>
-                            <?php endif; ?>
-                            
+                        });
+                        </script>
+                        
+                        <div class="expected-goals mb-4">
+                            <h3>⚽ Expected Goals</h3>
+                            <div class="goals-display"><?php echo $json_data['prediction']['expected_home_goals']; ?> - <?php echo $json_data['prediction']['expected_away_goals']; ?></div>
+                        </div>
+                        
+                        <?php
+                        $max_prob = max($json_data['prediction']['home_win'], $json_data['prediction']['draw'], $json_data['prediction']['away_win']);
+                        $predicted_result = "";
+                        if ($max_prob == $json_data['prediction']['home_win']) {
+                            $predicted_result = "HOME WIN for $team1";
+                        } elseif ($max_prob == $json_data['prediction']['away_win']) {
+                            $predicted_result = "AWAY WIN for $team2";
+                        } else {
+                            $predicted_result = "DRAW";
+                        }
+                        ?>
+                        
+                        <div class="final-prediction mb-4">
+                            <h3>🎯 Final Prediction</h3>
+                            <div class="prediction-result"><?php echo $predicted_result; ?></div>
+                            <div class="confidence">Confidence: <?php echo $max_prob; ?>%</div>
+                        </div>
+                        
+                        <?php if (isset($json_data['prediction']['score_probabilities'])): ?>
+                        <div class="score-probabilities mb-4">
+                            <h3>📊 Score Probabilities</h3>
+                            <p class="mb-3" style="color: white;">This chart shows the probability of each possible final score.</p>
                             <?php
-                            if (isset($json_data['model_info'])) {
-                                ?>
-                                <div class="model-info">
-                                    <h4>📊 Model Information</h4>
-                                    <div class="info-grid">
+                                $score_probs = $json_data['prediction']['score_probabilities'];
+                                $filtered = array_filter($score_probs, function($p) { return $p > 0.01; });
+                                arsort($filtered);
+                                $maxProb = max($filtered);
+                            ?>
+                            <div class="score-grid mb-4">
+                                <?php foreach ($filtered as $score => $prob): ?>
+                                    <div class="score-item">
+                                        <span class="score"><?= htmlspecialchars($score) ?></span>
+                                        <span class="probability"><?= round($prob * 100, 2) ?>%</span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                                                         <h4 class="text-center mb-3">Most Likely Final Scores</h4>
+                             <canvas id="scoreProbChart" height="180"></canvas>
+                        </div>
+                        <?php endif; ?>
+                        
+                        <?php
+                        if (isset($json_data['model_info'])) {
+                            ?>
+                            <div class="model-info">
+                                <h4>📊 Model Information</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
                                         <div class="info-item">
                                             <div class="info-value"><?php echo $json_data['model_info']['total_matches']; ?></div>
                                             <div class="info-label">Total Matches</div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="info-item">
                                             <div class="info-value"><?php echo $json_data['model_info']['training_matches']; ?></div>
                                             <div class="info-label">Training Data</div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="info-item">
                                             <div class="info-value"><?php echo $json_data['model_info']['available_teams']; ?></div>
                                             <div class="info-label">Teams Analyzed</div>
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                            }
-                            ?>
-                        </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
                         <?php
                         if (isset($filtered) && count($filtered) > 0): ?>
                         <script>
@@ -689,24 +578,21 @@ function getActualResults($teamA, $teamB, $season) {
                                         x: {
                                             beginAtZero: true,
                                             max: Math.max(...scoreData) + 2,
-                                            ticks: { color: '#2C3930' },
+                                            ticks: { color: '#DCD7C9' },
                                             title: {
                                                 display: true,
                                                 text: 'Probability (%)',
-                                                color: '#2C3930'
+                                                color: '#DCD7C9'
                                             }
                                         },
                                         y: {
-                                            ticks: { color: '#2C3930' }
+                                            ticks: { color: '#DCD7C9' }
                                         }
                                     },
                                     plugins: {
                                         legend: { display: false },
                                         title: {
-                                            display: true,
-                                            text: 'Most Likely Final Scores',
-                                            color: '#2C3930',
-                                            font: { size: 16 }
+                                            display: false
                                         },
                                         tooltip: {
                                             callbacks: {
@@ -745,5 +631,7 @@ function getActualResults($teamA, $teamB, $season) {
         }
         ?>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html> 
+</html>

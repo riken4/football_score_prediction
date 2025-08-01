@@ -30,7 +30,7 @@ $team_matches = array_filter($matches, function ($match) use ($team_id) {
 
 // Sort matches by date (most recent first)
 usort($team_matches, function($a, $b) {
-    return strtotime($b['date']) - strtotime($a['date']);
+    return strtotime($b['MatchDate']) - strtotime($a['MatchDate']);
 });
 
 // Calculate team statistics
@@ -255,8 +255,8 @@ foreach ($team_matches as $match) {
                                             $result_text = 'D';
                                         }
                                     ?>
-                                        <tr class="match-row" onclick="window.location='match_details.php?date=<?= urlencode($match['date']) ?>&home_team=<?= urlencode($match['home_team']) ?>&away_team=<?= urlencode($match['away_team']) ?>'">
-                                            <td><?= htmlspecialchars($match['date']) ?></td>
+                                        <tr class="match-row" onclick="window.location='match_details.php?date=<?= urlencode($match['MatchDate']) ?>&home_team=<?= urlencode($match['home_team']) ?>&away_team=<?= urlencode($match['away_team']) ?>'">
+                                            <td><?= htmlspecialchars($match['MatchDate']) ?></td>
                                             <td><?= htmlspecialchars($match['home_team']) ?></td>
                                             <td class="text-center"><?= $match['home_goals'] ?> - <?= $match['away_goals'] ?></td>
                                             <td><?= htmlspecialchars($match['away_team']) ?></td>

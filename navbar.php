@@ -16,7 +16,7 @@
                     </li>
            
                     <li class="">
-                        <a class="nav-link" href="index.php">Predict</a>
+                        <a class="nav-link" href="prediction_form.php">Predict</a>
                     </li> 
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="display.php">Match Detail</a>
